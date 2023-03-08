@@ -85,3 +85,48 @@ IncludeOptional conf.d/*.conf
     </virtualHost>
     
     
+    ------------------------------ SSL Configuration ------------
+yum install httpd
+yum install mod_ssl
+yum install openssl
+yum install nano
+
+## to generate the CSR file
+sudo openssl req -new -newkey rsa:2048 -nodes -keyout /etc/pki/tls/private/server.key -out /etc/pki/tls/private/server.csr
+sudo cat /etc/pki/tls/private/server.csr
+sudo nano /etc/pki/tls/certs/certificate.crt (paste certificate file text)
+sudo nano /etc/pki/tls/certs/intermediate.crt (paste intermediate file text)
+sudo nano /etc/httpd/conf.d/ssl.conf
+### enter the below entries
+SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
+SSLProtocol All -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
+SSLCertificateFile /etc/pki/tls/certs/certificate.crt
+SSLCertificateKeyFile /etc/pki/tls/private/server.key
+SSLCACertificateFile /etc/pki/tls/certs/intermediate.crt
+
+httpd -t
+
+##Configure the httpd Virtual Host
+sudo nano /etc/httpd/conf/httpd.conf
+
+SSLEngine on
+SSLCertificateFile /etc/pki/tls/certs/certificate.crt
+SSLCertificateKeyFile /etc/pki/tls/private/server.key
+SSLCACertificateFile /etc/pki/tls/certs/intermediate.crt
+servername www.yourdomain.com
+Documentroot /var/www/html
+
+httpd -t
+
+firewall-cmd --permanent --add-service=https
+firewall-cmd --permanent --add-port=443/tcp
+firewall-cmd --reload
+
+systemctl enable httpd.service
+systemctl restart httpd.service
+
+We also recommend you use this tool to check the install has been completed successfully: 
+www.ssllabs.com/ssltest/
+
+
+    
