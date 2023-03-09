@@ -152,3 +152,21 @@ zip -r gsv1.zip /root/test/ -x /root/test/**\*  (all files)
 
 zip -r gsv1.zip /root/test/ -x /root/test/test.com\* (specific file)
 
+############## Increase MAX connection of Mysql #######
+vim /etc/my.cnf
+
+[mysqld]
+max_connections=250
+
+mysql -uroot -p
+query > SHOW VARIABLES LIKE "max_connections";
+SHOW VARIABLES LIKE "max_used_connections";
+show session status;
+show global status;
+show status where `variable_name` = 'Threads_connected';
+SHOW STATUS WHERE `variable_name` = 'Max_used_connections';
+show status like 'Conn%';
+show status like '%onn%';
+show processlist;
+mysqladmin status
+
