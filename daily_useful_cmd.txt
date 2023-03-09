@@ -146,4 +146,9 @@ find / -name "*tomcat*" | xargs rm -rf
 find / -name "*java*" | xargs rm -rf
 
 
+#### make zip folder with exclude some files ######
+
+zip -r gsv1.zip /root/test/ -x /root/test/**\*  (all files)
+
+zip -r gsv1.zip /root/test/ -x /root/test/test.com\* (specific file)
 
