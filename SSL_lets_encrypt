@@ -1,0 +1,67 @@
+-------------- Free SSL implementation from Let's Enrypt ------------------------------
+
+First run the certbot command with your domain  → note use this where internet access
+
+root@user-pc:~# certbot certonly --manual -d DomainName.gov.in
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator manual, Installer None
+Obtaining a new certificate Performing the following challenges: http-01 challenge for domainname.gov.in
+-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NOTE: The IP of this machine will be publicly logged as having requested this certificate. If you're running certbot in manual mode on a machine that is not your server, please ensure you're okay with that.
+Are you OK with your IP being logged?
+-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(Y)es/(N)o: yes
+-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Create a file containing just this data:
+SUts8OCMBKTqULv1xm17ZVd1klYK_v8G6haqZhpRtl8.0sFR2fquGzsYokIBC5wR_k4AcKD
+QP9e_OU1cbsXhSF8
+And make it available on your web server at this URL:
+http://domainname.gov.in/.well-known/acme-challenge/SUts8OCMBKTqULv1xm17ZVd1klY K_v8G6haqZhpRtl8
+-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Press Enter to Continue
+-	Then create these directory in your DocumentRoot where application hosted as given by certbot
+Note - In last there is unique file name →
+SUts8OCMBKTqULv1xm17ZVd1klYK_v8G6haqZhpRtl8
+-	Now suppose your document root is /var/www/html then directory and file should be created as below.
+root@user-pc:~# pwd /var/www/html
+root@user-pc:~# mkdir -p .well-known/acme-challenge root@user-pc:~# touch SUts8OCMBKTqULv1xm17ZVd1klYK_v8G6haqZhpRtl8 And now put these unique code given by certbot in the created file please see below
+root@user-pc:~# echo
+SUts8OCMBKTqULv1xm17ZVd1klYK_v8G6haqZhpRtl8.0sFR2fquGzsYokIBC5wR_k4AcKD
+QP9e_OU1cbsXhSF8 >> SUts8OCMBKTqULv1xm17ZVd1klYK_v8G6haqZhpRtl8
+-	Give the 644 permission to the file
+-	Now verify with the given url on browser http://domainname.gov.in/.well-known/acme-challenge/SUts8OCMBKTqULv1xm17ZVd1klY
+K_v8G6haqZhpRtl8
+-	It should be shows on browser
+-	After verification on browser hit enter
+-	Now, it will give you certificate and private key with location where you have used certbot
+-	See sample below :-
+Waiting for verification... Cleaning up challenges
+IMPORTANT NOTES:
+-	Congratulations! Your certificate and chain have been saved at: /etc/letsencrypt/live/domainname.gov.in/fullchain.pem Your key file has been saved at:
+/etc/letsencrypt/live/domainname.gov.in/privkey.pem
+Your cert will expire on 2022-11-02. To obtain a new or tweaked version of this certificate in the future, simply run certbot again. To non-interactively renew *all* of your certificates, run "certbot renew"
+-	Your account credentials have been saved in your Certbotconfiguration directory at /etc/letsencrypt. You should make a secure backup of this folder now. This configuration directory will also contain certificates and private keys obtained by Certbot so making regular backups of this folder is ideal.
+-	If you like Certbot, please consider supporting our work by:
+Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate Donating to EFF:	https://eff.org/donate-le
+-	Store full chain and private key in a pem file root@user-pc:~# cat samplefullchain.pem sampleprivkey.pem >> sample.pem
+-	Now you can copy private and certificate pem on your ssl location of the web server & haproxy.
+Follow below to implement on haproxy :-
+> create a sample.pem file
+> Then store privkey.pem & fullchain.pem contents in sample.pem > Now store in /etc/ssl/certs/sample.pem of your web server.
+> And put this location on haproxy.
+> e.g. bind *:443 ssl  crt /etc/ssl/certs/sample.pem
+-	Now restart your haproxy and webservice container.
+=======================SSL Implementation
+Completed===========================
+-	To Generate .pfx file in server as pfx will be shared with WAF Team root@user-pc:~# openssl pkcs12 -export -out aptel.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem
+Password :-
+Password will be shared with the WAF Team.
+—----------------------------------------------------------------------------------------------------
+To extract public key from certificate use below command:root@user-pc:~# openssl x509 -pubkey -noout -in cert.pem  > pubkey.pem
+—----------------------------------------------------------------------------------------------------
+View SSL certificate info openssl x509 -text -in certificate.crt -noout
+—----------------------------------------------------------------------------------------------------
+Check Private key info openssl rsa -text -in privateKey.key -noout.
+—----------------------------------------------------------------------------------------------------
+Check CSR info
+openssl req -text -in CSR.csr -noout
