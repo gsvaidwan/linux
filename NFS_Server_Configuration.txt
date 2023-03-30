@@ -1,0 +1,40 @@
+
+============================================================================================
+------------------------------- Server Side -------------------------------------------------
+============================================================================================
+$ yum install nfs-utils 
+$ systemctl start nfs-server
+$ systemctl enable --now nfs-server
+$ mkdir /nfs_share_folder
+$ vi /etc/exports
+ 
+ /nfs_share_folder        *(rw,sync)
+      :wq!
+
+$ showmount -e
+$ exportfs -arv
+
+To add nfs service on firewall-cmd to accept in-bound traffic
+---------------------------------------------------------------------------------------------
+$ firewall-cmd --add-service={nfs,rpc-bind,mountd} --permanent 
+$ firewall-cmd --reload
+$ firewall-cmd --list-all
+
+==========================================================================================
+CLIENT SYSTEM
+==========================================================================================
+$ yum install nfs-utils
+mkdir /nfs_share_folder
+$ showmount -e  nfs-server IP
+$ mount  nfs-server IP:/nfs_share_folder     /nfs_share_folder
+$ df -kh
+
+
+To make it permanent
+-------------------
+$ umount /nfs_share_folder
+$ vi /etc/fstab    # Edit configuration file
+ nfs-server-ip:/nfs_share_folder  /nfs_share_folder  nfs  defaults  0 0 
+ :wq!
+$ mount -a
+
