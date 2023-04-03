@@ -65,3 +65,9 @@ Check Private key info openssl rsa -text -in privateKey.key -noout.
 —----------------------------------------------------------------------------------------------------
 Check CSR info
 openssl req -text -in CSR.csr -noout
+
+
+
+------------------
+Referal links:
+https://www.linuxteck.com/secure-apache-with-ssl-in-rocky-linux/
