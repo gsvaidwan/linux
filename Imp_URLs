@@ -1,0 +1,33 @@
+Important URLs 
+--------------------------------------------------------
+
+For Setup MariaDB (Master-Slave) Replication in CentOS/RHEL 7 and Debian 8/9
+https://www.tecmint.com/mariadb-master-slave-replication-on-centos-rhel-debian/
+
+
+Install MariaDB 10.9 on Amazon Linux 2
+https://techviewleo.com/how-to-install-mariadb-server-on-amazon-linux/
+
+
+Install MySQL 8.0 on RHEL/CentOS 8/7 and Fedora 35
+https://www.tecmint.com/install-latest-mysql-on-rhel-centos-and-fedora/
+
+
+curl -k URL to execute on terminal
+
+some cheatsheets and quick references contributed by open source angels
+https://quickref.me/
+
+
+How to run multiple PHP versions with apache on CentOS 7 linux
+https://www.tuxtips.net/how-to-run-multiple-php-versions-with-apache-on-centos-7-linux/
+
+
+Redirect from HTTP to HTTPS using the IIS URL Rewrite module
+https://blog.matrixpost.net/redirect-from-http-to-https-using-the-iis-url-rewrite-module/
+
+
+Error related to only_full_group_by when executing a query in MySql
+https://stackoverflow.com/questions/34115174/error-related-to-only-full-group-by-when-executing-a-query-in-mysql
+
+
