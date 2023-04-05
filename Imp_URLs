@@ -12,6 +12,9 @@ https://techviewleo.com/how-to-install-mariadb-server-on-amazon-linux/
 Install MySQL 8.0 on RHEL/CentOS 8/7 and Fedora 35
 https://www.tecmint.com/install-latest-mysql-on-rhel-centos-and-fedora/
 
+Install MySQL on CentOS 7
+https://www.hostinger.in/tutorials/how-to-install-mysql-on-centos-7
+
 
 curl -k URL to execute on terminal
 
@@ -29,5 +32,32 @@ https://blog.matrixpost.net/redirect-from-http-to-https-using-the-iis-url-rewrit
 
 Error related to only_full_group_by when executing a query in MySql
 https://stackoverflow.com/questions/34115174/error-related-to-only-full-group-by-when-executing-a-query-in-mysql
+
+
+MySQL Docker Container Tutorial: How to Set Up & Configure
+https://phoenixnap.com/kb/mysql-docker-container
+
+
+How to install and configure HAproxy on Ubuntu 20.04 LTS
+https://linuxhint.com/how-to-install-and-configure-haproxy-load-balancer-in-linux/
+
+
+TERRAFORM
+https://www.freecodecamp.org/news/tag/terraform/
+
+
+How Do You Calculate vCPU to CPU?
+https://www.datacenters.com/news/what-is-a-vcpu-and-how-do-you-calculate-vcpu-to-cpu
+
+
+The Power of grep: A Guide to Text Pattern Searching in Linux
+https://medium.com/@badalpanwar007/the-power-of-grep-a-guide-to-text-pattern-searching-in-linux-fd8da8482557
+
+
+Set up a WSL development environment
+https://learn.microsoft.com/en-us/windows/wsl/setup/environment?source=recommendations
+
+
+
 
 
