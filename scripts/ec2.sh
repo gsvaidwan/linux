@@ -11,3 +11,5 @@ sudo systemctl enable httpd
 
 # Create custom webpage
 sudo echo “<html><body><h1>Hello Blue Team!!!</h1></body></html>” > /var/www/html/index.html
+
+# demo code 
