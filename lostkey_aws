@@ -1,0 +1,104 @@
+Step 1:
+Create new Key Pair
+
+1.1 Go to the EC2 console and under the Network and Security section, select key pair option.
+
+
+Key Pair section
+2. Select create new Key pair
+
+Create Key Pair
+3. create new key pair. In my case, my new key pair name is “ec2-missing-new-kp”.
+
+create new key pair
+Step 2:
+2.1. Now you can go to your local terminal and under the switch to the directory way, a new key pair file is downloaded.
+
+After that type this command:
+
+ssh-keygen -y -f filename.pem
+
+Now we got our public key. So this public key wants to put our ec2 in the future. keep this safe.
+
+2.2 Get this script and modify it.
+
+------------------------------------------------------------
+
+Content-Type: multipart/mixed; boundary="//"
+MIME-Version: 1.0
+
+--//
+Content-Type: text/cloud-config; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="cloud-config.txt"
+
+#cloud-config
+cloud_final_modules:
+- [users-groups, once]
+users:
+  - name: username
+    ssh-authorized-keys: 
+    - PublicKeypair
+---------------------------------------------------------------
+
+Now you want to some changes to this script. Under the users: section firstly you need to rename your ec2 user name. In my case my ec2 user name is ec2-user. You can confirm this by going to EC2 connect section( I attached an example screenshot for your reference)
+
+Note: You need to verify your username correctly.
+
+
+varify your ec2 use name
+After that in the ssh-authorized-keys section, replace the public key pair you got earlier here. The key which we have created(step 2.1)
+
+-------------------------------------------------------------
+Content-Type: multipart/mixed; boundary="//"
+MIME-Version: 1.0
+
+--//
+Content-Type: text/cloud-config; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="cloud-config.txt"
+
+#cloud-config
+cloud_final_modules:
+- [users-groups, once]
+users:
+  - name: ec2-user
+    ssh-authorized-keys: 
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTbmAuTDxr+2AHf3xgGizTErbIz4EglR7YgPO1c0XaQ+6Y8oCgJrs/gXm371fooGYaA/Uzc7AEM5aTNbGCiBbPWSP/GqsSyJTi4tkUrA7+88Z7RYR3bgBptdw3ZXMgXklMwBbp1gf8Dz6E9dHWBt2O6SrqGu63CjJyaG9pJd0crPYX3hBt0yn6zJ7E9QQbKi1Ar/ZZ4KPBxByRpLsqHutoltGgATeHmMQm/Krm5MnuUv9vdzMsVDlxBfKpfRStn7ZXlui5g5bAAgD4ML+SwZ78d7RxQTaYHwaDAEtVsBqA+f/deb4wQTjZXrBRKtl9nl+yRsJkGJbP7mat3AARkE3F
+
+-------------------------------------------------------------------
+
+Step 3:
+3.1. Now go to the AWS Management Console and stop your ec2 instance. (Keep in mind, If you do not attach elastic IP, your public IP will change during reboot)
+
+Now select the ec2 instance and under the actions, tab go to the instance settings.
+
+
+Go to instance settings
+Under the instance settings, go to the Edit user data section.
+
+
+Go to Edit user data
+Now copy the entire script and you need to paste it into the ec2 user data section and save it.
+
+
+Copy and save new user data
+3.2. Now you can start the ec2 instance.
+
+
+ec2 is in running mode
+Step 4:
+
+4.1. Now try to access the instance using ssh with new key pair.
+
+Go to the SSH client and copy the command.
+
+
+coping ssh command
+Please note that rename your new key pair in the ssh command.
+
+
+new key pair connect
+Now you can see the new key will work.
