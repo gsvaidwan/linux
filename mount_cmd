@@ -1,0 +1,14 @@
+    pvcreate /dev/sdb   (if created not run)
+    vgcreate vg_name /dev/sdb  (create VG)
+    lvcreate -l 100%FREE -n lv_name vg_name  (create free space)
+    lvs  (check vol is online or offline)
+    lsblk
+    mkfs.xfs /dev/vg_name/lv_name
+    ll
+    pwd
+    lsblk -f    (check & get UUID)
+    vim /etc/fstab
+    systemctl daemon-reload
+    mount -a
+    lsblk
+    df -Th
