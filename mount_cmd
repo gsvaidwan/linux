@@ -12,3 +12,36 @@
     mount -a
     lsblk
     df -Th
+
+
+------------------------------------------
+Create the Volume in AWS
+
+create vol 20GB through console and attached in machichne 
+
+login in machine 
+
+fdisk -l (check the disk and note the name as /dev/xvdf)
+
+df -h
+
+mkfs.ext4 /dev/xvdf
+
+mkdir /gsv
+
+mount /dev/xvdf /gsv
+
+Resize the existing volume
+
+Modify the volume from console as required 
+
+resize2fs /dev/xvdf
+
+df -h
+
+--------------------------
+Kill previous ID
+
+ps -ef | grep yum
+
+kill -9 p_id
