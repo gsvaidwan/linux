@@ -1,5 +1,8 @@
 ************* some useful commands for daily use as server administrator -------------
 
+
+------------Check Website Connectivity: Check if a website is up
+# curl -Is https://example.com | head -n 1
 #cat /etc/os-release    For check os version
 
 #php -v	    check php version
