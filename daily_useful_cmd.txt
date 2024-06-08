@@ -173,3 +173,10 @@ show status like '%onn%';
 show processlist;
 mysqladmin status
 
+######################## set folder permission for https://domainname.com/icons on
+Directory Listing 
+
+find / -name small
+/usr/share/httpd/icons/small
+chmod -R 000 /usr/share/httpd/icons
+
